@@ -20,7 +20,9 @@ class Login extends Component {
   }
 
   handleLogin = (credentials) => {
-    AuthService.login(credentials.username, credentials.password)
+    localStorage.clear();
+    AuthService.setToken("boubloublouboubolouoolu");
+    this.props.history.push('/');
   }
 }
 

@@ -8,17 +8,17 @@ import {
 } from "react-router-dom";
 
 import Home from "../Home";
+import NavBar from "../../components/NavBar";
 
 import AuthService from "../../services/authService";
 
+import "./Layout.css";
+
 const Layout = () => (
   <div>
-    {
-      !AuthService.isLoggedIn &&
-      <Redirect to="/login" />
-      //<NavBar history={this.props.history} />
-    }
-    <div>
+    <NavBar />
+
+    <div className="content">
       <Switch>
         <Route exact path="/" component={Home} />
         <Route path="/customers" component={Home} />
