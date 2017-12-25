@@ -67,6 +67,7 @@ class AuthForm extends Component {
   }
 
   handleSubmit = () => {
+    console.log('e')
     if(!this.state.username && !this.state.password) {
       this.setState({error: "Please fill in the fields"})
     }
