@@ -5,7 +5,7 @@ const SRC_DIR = path.resolve(__dirname, 'src')
 let config = {
     entry: SRC_DIR + '/main.jsx',
     output: {
-        path: path.resolve(__dirname, 'assets'),
+        path: path.resolve(__dirname, 'public/assets'),
         filename: 'main.js',
         publicPath: '/assets/'
     },
@@ -26,6 +26,9 @@ let config = {
                 loader: ['react-hot-loader/webpack', 'babel-loader']
             }
         ]
+    },
+    devServer: {
+        contentBase: path.resolve('./public')
     },
     plugins: [
         new webpack.DefinePlugin({
