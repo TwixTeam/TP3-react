@@ -22,6 +22,7 @@ let config = {
             },
             {
                 test: /\.(js|jsx)$/,
+                exclude: /node_modules/,
                 loader: ['react-hot-loader/webpack', 'babel-loader']
             }
         ]

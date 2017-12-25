@@ -29,11 +29,11 @@
     "webpack-dev-server": "^2.9.4"
   },
   "scripts": {
-    "start": "cross-env NODE_ENV=production webpack && webpack-dev-server",
+    "start": "cross-env NODE_ENV=production webpack && webpack-dev-server --open",
     "build": "cross-env NODE_ENV=production webpack",
     "test": "react-scripts test --env=jsdom",
     "eject": "react-scripts eject",
-    "dev": "cross-env NODE_ENV=development webpack-dev-server --hot"
+    "dev": "cross-env NODE_ENV=development webpack-dev-server --hot --open"
   },
   "description": "TP3 React, cours web avancée, by Arfaz FEROZ & Bilal ABBAD",
   "main": "index.js",
