@@ -1,7 +1,7 @@
 import React, { Component } from 'react'
 import PropTypes from "prop-types";
 
-import { Card, CardActions, CardText, CardHeader, CardTitle } from "material-ui/Card";
+import { Card, CardActions, CardText, CardTitle } from "material-ui/Card";
 import FlatButton from 'material-ui/FlatButton';
 import TextField from 'material-ui/TextField';
 

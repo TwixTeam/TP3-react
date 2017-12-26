@@ -3,27 +3,25 @@ import React from 'react';
 
 import {
   Route,
-  Redirect,
   Switch
 } from "react-router-dom";
 
-import Home from "../Home";
+import CustomerManagement from "../CustomerManagement";
+import CustomerListPage from "../CustomerListPage";
+import RentalManagement from "../RentalManagement";
 import NavBar from "../../components/NavBar";
-
-import AuthService from "../../services/authService";
 
 import "./Layout.css";
 
 const Layout = () => (
   <div>
     <NavBar />
-
     <div className="content">
       <Switch>
-        <Route exact path="/" component={Home} />
-        <Route path="/customers" component={Home} />
-        <Route path="/rentals" component={Home} />
-        <Route component={Home} />
+        <Route exact path="/" component={CustomerManagement} />
+        <Route path="/customers" component={CustomerListPage} />
+        <Route path="/rentals" component={RentalManagement} />
+        <Route component={CustomerManagement} />
       </Switch>
     </div>
   </div>

@@ -3,7 +3,7 @@ import axios from "axios";
 const AuthService = {
 
   setToken: (token) => {
-    axios.defaults.headers.common['Authorization'] = 'Bearer ' + token;
+    axios.defaults.headers.common['Authorization'] = token;
     localStorage.setItem('token', token);
   },
 
@@ -12,8 +12,8 @@ const AuthService = {
   ),
 
   login: (user, password) => {
-    return axios.post('/login', {
-      username: user,
+    return axios.post('/auth/refresh_token', {
+      userName: user,
       password: password
     }).then(res => {
       AuthService.setToken(res.data);

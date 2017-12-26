@@ -1,6 +1,6 @@
 import React, { Component } from 'react'
 
-import AuthForm from "../../components/AuthForm";
+import AuthForm from "../../components/Form/AuthForm";
 import AuthService from "../../services/authService";
 
 class Login extends Component {
@@ -21,8 +21,11 @@ class Login extends Component {
 
   handleLogin = (credentials) => {
     localStorage.clear();
-    AuthService.setToken("boubloublouboubolouoolu");
-    this.props.history.push('/');
+    AuthService.login(credentials.username, credentials.password).then(res => {
+      this.props.history.push('/');
+    }).catch(err => {
+      this.setState({error: "Bad credentials"});
+    });
   }
 }
 
