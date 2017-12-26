@@ -15,13 +15,47 @@ class CustomerManagement extends Component {
       errorMessage: "",
       open: false,
       result: "",
+      currentCustomer : {
+        countryId: null,
+        customerId: null,
+        email:"",
+        firstName:"",
+        lastName:"",
+        address: {
+          address: "",
+          address2: "",
+          district: "",
+          postalCode: "",
+          cityId: 1,
+          phone: "",
+        }
+      }
     };
   }
 
+  componentDidMount(){
+    if(this.props.location.state) {
+      console.log("ok")
+      this.setState({currentCustomer: {...this.props.location.state.user}})
+    }
+
+  }
   render() {
     return (
       <div>
-        <CustomerForm handleSubmit={this.handleSubmit} />
+        <CustomerForm 
+          editAddress={this.editAddress}
+          editAddress2={this.editAddress2}
+          editDistrict={this.editDistrict}
+          editFirstName={this.editFirstName}
+          editLastName={this.editLastName}
+          editMail={this.editMail}
+          editPhone={this.editPhone}
+          editPostalCode={this.editPostalCode}
+          resetForm-={this.resetForm}
+          handleSubmit={this.handleSubmit} 
+          {...this.state}
+        />
         <br />
 
         <Snackbar
@@ -34,7 +68,120 @@ class CustomerManagement extends Component {
     )
   }
 
-  
+  editFirstName = (value) => {
+    this.setState({
+      currentCustomer: {
+        ...this.state.currentCustomer,
+        firstName: value
+      }
+    })
+  }
+
+  editLastName = (value) => {
+    this.setState({
+      currentCustomer: {
+        ...this.state.currentCustomer,
+        lastName: value
+      }
+    })
+  }
+
+  editMail = (value) => {
+    this.setState({
+      currentCustomer: {
+        ...this.state.currentCustomer,
+        email: value
+      }
+    })
+  }
+
+  editPhone = (value) => {
+    this.setState({
+      currentCustomer: {
+        ...this.state.currentCustomer,
+        address: {
+          ...this.state.currentCustomer.address,
+          phone: value
+        }
+      }
+    })
+  }
+
+
+  editAddress = (value) => {
+    this.setState({
+      currentCustomer: {
+        ...this.state.currentCustomer,
+        address: {
+          ...this.state.currentCustomer.address,
+          address: value
+        }
+      }
+    })
+  }
+
+  editAddress2 = (value) => {
+    this.setState({
+      currentCustomer: {
+        ...this.state.currentCustomer,
+        address: {
+          ...this.state.currentCustomer.address,
+          address2: value
+        }
+      }
+    })
+  }
+
+  editDistrict = (value) => {
+    this.setState({
+      currentCustomer: {
+        ...this.state.currentCustomer,
+        address: {
+          ...this.state.currentCustomer.address,
+          district: value
+        }
+      }
+    })
+  }
+
+  editPostalCode = (value) => {
+    this.setState({
+      currentCustomer: {
+        ...this.state.currentCustomer,
+        address: {
+          ...this.state.currentCustomer.address,
+          postalCode: value
+        }
+      }
+    })
+  }
+
+  resetForm = () => {
+    this.setState({
+      currentCustomer : {
+        countryId: null,
+        customerId: null,
+        email:"",
+        firstName:"",
+        lastName:"",
+        address: {
+          address: "",
+          address2: "",
+          district: "",
+          postalCode: "",
+          cityId: 1,
+          phone: "",
+        }
+      }
+    })
+  }
+
+  handleSubmit = () => {
+    this.state.currentCustomer.firstName && this.state.currentCustomer.lastName && this.state.currentCustomer.address.phone 
+    && this.state.currentCustomer.address.address && this.state.currentCustomer.address.district
+      ? this.addCustomer(this.state.currentCustomer)
+      : this.setState({errorMessage: "Please fill in all the required fileds : *"})
+  }
 
   handleRequestClose = () => {
     this.setState({
@@ -42,7 +189,7 @@ class CustomerManagement extends Component {
     });
   };
 
-  handleSubmit = (customer) => {
+  addCustomer = (customer) => {
     console.log(customer)
     customer.customerId 
       ? CustomerService.updateCustomer(customer).then(res => {
@@ -51,9 +198,10 @@ class CustomerManagement extends Component {
         this.setState({open: true, result: "Update customer: Fail"})
       })
 
-      : CustomerService.createCustomer().then(res => {
+      : CustomerService.createCustomer(customer).then(res => {
         console.log(res)
         this.setState({open: true, result: "Create new customer: Success"})
+        this.resetForm();
       }).catch(err => {
         this.setState({open: true, result: "Create new customer: Fail"})
       })

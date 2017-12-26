@@ -38,8 +38,11 @@ class CustomerListPage extends Component {
     });
   }
   
-  handleEditCustomer = () => {
-
+  handleEditCustomer = (customer) => {
+    this.props.history.push({
+      pathname: '/',
+      state: { user: customer }
+    })
   }
 }
 

@@ -8,13 +8,14 @@ const CustomerService = {
       .catch(error => error);
   },
 
-  createCustomer: (customerWO) => {
-    return axios.post('/customer/', {...customerWO})
+  createCustomer: (customer) => {
+    return axios.post('/customer/', customer)
       .then(res => res.data)
       .catch(error => error)
   },
 
   updateCustomer: (customer) => {
+    console.log(customer)
     return axios.put('/customerUpdate/', customer)
       .then(res => res.data)
       .catch(error => error)
