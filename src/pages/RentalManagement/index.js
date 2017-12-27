@@ -1,8 +1,10 @@
 import React, { Component } from 'react';
 
+
+import Snackbar from 'material-ui/Snackbar';
+
 import SelectCustomerForm from "../../components/Form/SelectCustomerForm";
 import FilmList from "../../components/List/FilmList";
-
 
 import CustomerService from "../../services/customerService";
 import RentalService from "../../services/rentalService";
@@ -14,6 +16,8 @@ class RentalManagement extends Component {
     super();
 
     this.state = {
+      open: false,
+      result: "",
       errorForm: false,
       loadingForm: true,
       errorRentals: false,
@@ -58,16 +62,28 @@ class RentalManagement extends Component {
           isRental={false}
           films={this.state.films}
         />
+
+        <Snackbar
+          open={this.state.open}
+          message={this.state.result}
+          autoHideDuration={4000}
+          onRequestClose={this.handleRequestClose}
+        />
       </div>
     )
   }
 
+  handleRequestClose = () => {
+    this.setState({
+      open: false,
+    });
+  };
+
   componentDidMount() {
     CustomerService.getAllCustomers().then(res => {
-      res.length > 0
-        ? this.setState({customers: res, loadingForm:false})
-        : this.setState({errorForm:true, loadingForm:false})
+      this.setState({customers: res, loadingForm:false})
     }).catch(err => {
+      this.setState({errorForm:true, loadingForm:false})
     });
 
     if(this.props.location.state) {
@@ -84,18 +100,19 @@ class RentalManagement extends Component {
 
   onCreateRental = (filmId) => {
     RentalService.createRental(this.state.selectedCustomerId, filmId).then(res => {
+      this.setState({open: true, result: "Renting film: Success"})
       this.getRentalsAndFilmsFromCustomer(this.state.selectedCustomerId);
     }).catch(err => {
-      console.log(err)
+      this.setState({open: true, result: "Renting film: Fail"})
     });
-    this.getRentalsAndFilmsFromCustomer(this.state.selectedCustomerId)
   }
 
   onUpdateRental = (filmId) => {
     RentalService.updateRental(this.state.selectedCustomerId, filmId).then(res => {
+      this.setState({open: true, result: "Return rental: Success"})
       this.getRentalsAndFilmsFromCustomer(this.state.selectedCustomerId);
     }).catch(err => {
-      console.log(err)
+      this.setState({open: true, result: "Return rental: Fail"})
     });
 
   }
