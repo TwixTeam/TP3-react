@@ -8,15 +8,14 @@ import {
   TableRow,
 } from 'material-ui/Table';
 
-import CustomerListHelper from "../../../helpers/CustomerListHelper";
-
 import Loader from "../../Loader";
+import FilmListHelper from "../../../helpers/FilmListHelper";
 
-const CustomerList = (props) => (
+const FilmList = (props) => (
   <div>
-    <Loader error={props.error} loading={props.loading}>
+    <Loader {...props}>
       <Table
-        height="600px"
+        height="300px"
         fixedHeader={true}
         selectable={false}
       >
@@ -26,15 +25,19 @@ const CustomerList = (props) => (
         >
           <TableRow>
             <TableHeaderColumn colSpan="6" style={{textAlign: 'center'}}>
-              Customer List
+              {
+                props.rentals 
+                  ? "Customer Rentals"
+                  : "Available Films"
+              }
             </TableHeaderColumn>
           </TableRow>
           <TableRow>
             <TableHeaderColumn>ID</TableHeaderColumn>
-            <TableHeaderColumn>Last name, First name</TableHeaderColumn>
-            <TableHeaderColumn>Phone</TableHeaderColumn>
-            <TableHeaderColumn>Mail</TableHeaderColumn>
-            <TableHeaderColumn>Address</TableHeaderColumn>
+            <TableHeaderColumn>Title</TableHeaderColumn>
+            <TableHeaderColumn>Description</TableHeaderColumn>
+            <TableHeaderColumn>Release Year</TableHeaderColumn>
+            <TableHeaderColumn>Rate</TableHeaderColumn>
             <TableHeaderColumn>  </TableHeaderColumn>
           </TableRow>
         </TableHeader>
@@ -44,13 +47,14 @@ const CustomerList = (props) => (
           displayRowCheckbox={false}
         >
           {
-            props.customers.length > 0 &&
-            CustomerListHelper.displayCustomers(props)
+            ((props.rentals && props.rentals.length > 0) || (props.films && props.films.length)) &&
+            FilmListHelper.buildFilmList(props)
           }
         </TableBody>
       </Table>
-    </Loader>
+    
+  </Loader>
   </div>
-);
+)
 
-export default CustomerList;
+export default FilmList;

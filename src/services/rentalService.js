@@ -14,16 +14,22 @@ const RentalService = {
       .catch(error => error);
   },
 
-  createRental: (ids) => {
-    return axios.post(`/rental/${ids}`)
+  createRental: (customerId, filmId) => {
+    return axios.post('/rental/', {
+      customerId: customerId,
+      filmId: filmId
+    })
       .then(res => res.data)
-      .catch(error => error);
+      .catch(error => error)
   },
 
-  updateRental: (ids) => {
-    return axios.put(`/rentalUpdate/${ids}`)
+  updateRental: (customerId, filmId) => {
+    return axios.put('/rentalUpdate/', {
+      customerId: customerId,
+      filmId: filmId
+    })
       .then(res => res.data)
-      .catch(error => error);
+      .catch(error => error)
   }
 }
 

@@ -35,11 +35,10 @@ class CustomerManagement extends Component {
 
   componentDidMount(){
     if(this.props.location.state) {
-      console.log("ok")
       this.setState({currentCustomer: {...this.props.location.state.user}})
     }
-
   }
+  
   render() {
     return (
       <div>
@@ -52,7 +51,7 @@ class CustomerManagement extends Component {
           editMail={this.editMail}
           editPhone={this.editPhone}
           editPostalCode={this.editPostalCode}
-          resetForm-={this.resetForm}
+          resetForm={this.resetForm}
           handleSubmit={this.handleSubmit} 
           {...this.state}
         />
@@ -190,7 +189,6 @@ class CustomerManagement extends Component {
   };
 
   addCustomer = (customer) => {
-    console.log(customer)
     customer.customerId 
       ? CustomerService.updateCustomer(customer).then(res => {
         this.setState({open: true, result: "Update customer : Success"})
@@ -199,12 +197,18 @@ class CustomerManagement extends Component {
       })
 
       : CustomerService.createCustomer(customer).then(res => {
-        console.log(res)
         this.setState({open: true, result: "Create new customer: Success"})
         this.resetForm();
+        
       }).catch(err => {
         this.setState({open: true, result: "Create new customer: Fail"})
       })
+
+    setTimeout(() => {this.props.history.push(
+      {
+        pathname: '/customers',
+      }
+    )}, 2000);
   }
 }
 

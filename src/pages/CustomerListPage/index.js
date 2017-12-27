@@ -26,12 +26,7 @@ class CustomerListPage extends Component {
   }
 
   componentDidMount() {
-    this.importCustomers();
-  }
-
-  importCustomers = () => {
     CustomerService.getAllCustomers().then(res => {
-      console.log(res);
       this.setState({customers: res, loading:false});
     }).catch(err => {
       this.setState({open:true, result: "Network error: Cannot find customers", customers: [], error: true, loading:false});

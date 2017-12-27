@@ -15,7 +15,6 @@ const CustomerService = {
   },
 
   updateCustomer: (customer) => {
-    console.log(customer)
     return axios.put('/customerUpdate/', customer)
       .then(res => res.data)
       .catch(error => error)

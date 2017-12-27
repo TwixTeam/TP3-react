@@ -31,7 +31,7 @@ const CustomerForm = (props) => (
           id={"1"} 
           type="text"
           value={props.currentCustomer.firstName} 
-          onChange={(e) => props.editFirstName(e.target.value)} 
+          onChange={(e) => props.editFirstName(e.target.value.toUpperCase())} 
         />
 
         <TextField
@@ -41,7 +41,7 @@ const CustomerForm = (props) => (
           id={"2"} 
           type="text"
           value={props.currentCustomer.lastName} 
-          onChange={(e) => props.editLastName(e.target.value)} 
+          onChange={(e) => props.editLastName(e.target.value.toUpperCase())} 
         />
 
         <TextField
