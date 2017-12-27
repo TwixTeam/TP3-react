@@ -14,6 +14,7 @@ class AuthForm extends Component {
     this.state = {
       username: "",
       password: "",
+      errorMsg: ""
     }
   }
 
@@ -30,6 +31,15 @@ class AuthForm extends Component {
             <p style={{  color:'#F00' }}>
               {this.props.error}
             </p>
+            
+          }
+
+          {
+            this.state.errorMsg &&
+            <p style={{  color:'#F00' }}>
+              {this.state.errorMsg}
+            </p>
+            
           }
 
           <TextField
@@ -67,21 +77,21 @@ class AuthForm extends Component {
 
   handleSubmit = () => {
     if(!this.state.username && !this.state.password) {
-      this.setState({error: "Please fill in the fields"})
+      this.setState({errorMsg: "Please fill in the fields"})
     }
 
     else{
       this.props.handleLogin({...this.state})
-      this.setState({username: "", password: "", error: ""});
+      this.setState({username: "", password: "", errorMsg: ""});
     }
   }
 
   editUsername = (e) => {
-    this.setState({username: e.target.value, error: ""});
+    this.setState({username: e.target.value, errorMsg: ""});
   }
 
   editPassword = (e) => {
-    this.setState({password: e.target.value, error: ""});
+    this.setState({password: e.target.value, errorMsg: ""});
   }
 }
 
