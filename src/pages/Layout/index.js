@@ -13,6 +13,8 @@ import NavBar from "../../components/NavBar";
 
 import "./Layout.css";
 
+localStorage.clear();
+
 const Layout = () => (
   <div>
     <NavBar />

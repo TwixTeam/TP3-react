@@ -17,9 +17,7 @@ const AuthService = {
       password: password
     }).then(res => {
       AuthService.setToken(res.data);
-    }).catch( error => {
-      console.log(error);
-    });
+    })
   },
 
   logout: () => {

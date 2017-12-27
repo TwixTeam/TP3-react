@@ -8,28 +8,27 @@ import TextField from 'material-ui/TextField';
 
 class AuthForm extends Component {
 
-  constructor(props) {
-    super(props);
+  constructor() {
+    super();
 
     this.state = {
       username: "",
       password: "",
-      error: props.error
     }
   }
 
   render() {
     return (
-      <Card style={{ textAlign: 'center' }}>
+      <Card style={{  marginLeft:'300px', marginRight:'300px', marginTop:'200px' ,textAlign: 'center' }}>
         <CardTitle>
           <h3>Login</h3>
         </CardTitle>
 
         <CardText>
           {
-            this.state.error &&
-            <p className="LoginErrorText">
-              {this.state.error}
+            this.props.error &&
+            <p style={{  color:'#F00' }}>
+              {this.props.error}
             </p>
           }
 

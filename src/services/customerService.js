@@ -5,19 +5,16 @@ const CustomerService = {
   getAllCustomers: () => {
     return axios.get('/customer/')
       .then(res => res.data)
-      .catch(error => error);
   },
 
   createCustomer: (customer) => {
     return axios.post('/customer/', customer)
       .then(res => res.data)
-      .catch(error => error)
   },
 
   updateCustomer: (customer) => {
     return axios.put('/customerUpdate/', customer)
       .then(res => res.data)
-      .catch(error => error)
   }
 }
 

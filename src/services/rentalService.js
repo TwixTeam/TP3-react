@@ -5,13 +5,11 @@ const RentalService = {
   getCustomerRentals: (customerId) => {
     return axios.get(`/customerRentals/${customerId}`)
       .then(res => res.data)
-      .catch(error => error);
   },
 
   getNoRentedFilms: (customerId) => {
     return axios.get(`/availableFilms/${customerId}`)
       .then(res => res.data)
-      .catch(error => error);
   },
 
   createRental: (customerId, filmId) => {
@@ -20,7 +18,6 @@ const RentalService = {
       filmId: filmId
     })
       .then(res => res.data)
-      .catch(error => error)
   },
 
   updateRental: (customerId, filmId) => {
@@ -29,7 +26,6 @@ const RentalService = {
       filmId: filmId
     })
       .then(res => res.data)
-      .catch(error => error)
   }
 }
 
