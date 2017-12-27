@@ -38,7 +38,7 @@ class CustomerManagement extends Component {
       this.setState({currentCustomer: {...this.props.location.state.user}})
     }
   }
-  
+
   render() {
     return (
       <div>
@@ -179,7 +179,7 @@ class CustomerManagement extends Component {
     this.state.currentCustomer.firstName && this.state.currentCustomer.lastName && this.state.currentCustomer.address.phone 
     && this.state.currentCustomer.address.address && this.state.currentCustomer.address.district
       ? this.addCustomer(this.state.currentCustomer)
-      : this.setState({errorMessage: "Please fill in all the required fileds : *"})
+      : this.setState({errorMessage: "Please fill in all the required fileds"})
   }
 
   handleRequestClose = () => {

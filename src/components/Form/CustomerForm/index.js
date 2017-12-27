@@ -2,9 +2,9 @@ import React from 'react';
 
 import { Card, CardText, CardTitle, CardActions, CardHeader } from "material-ui/Card";
 import TextField from "material-ui/TextField";
-import SelectField from "material-ui/SelectField";
-import MenuItem from 'material-ui/MenuItem';
 import RaisedButton from "material-ui/RaisedButton";
+
+import "./CustomerForm.css";
 
 const CustomerForm = (props) => (
   <div>
@@ -15,7 +15,7 @@ const CustomerForm = (props) => (
         
         {
           props.errorMessage &&
-          <p>{props.errorMessage}</p>
+          <p style={{ color: "#F00"}}>{props.errorMessage}</p>
         }
       </CardTitle>
 
@@ -35,7 +35,7 @@ const CustomerForm = (props) => (
         />
 
         <TextField
-          className="Left-Input" 
+          className="Right-Input" 
           hintText="LastName *"
           hintStyle={{color:'#ccc'}} 
           id={"2"} 
@@ -44,8 +44,10 @@ const CustomerForm = (props) => (
           onChange={(e) => props.editLastName(e.target.value.toUpperCase())} 
         />
 
+        <br/>
+
         <TextField
-          className="Right-Input" 
+          className="Left-Input" 
           hintText="Mail"
           hintStyle={{color:'#ccc'}} 
           id={"3"} 
@@ -59,7 +61,7 @@ const CustomerForm = (props) => (
           hintText="Phone *"
           hintStyle={{color:'#ccc'}} 
           id={"4"} 
-          type="phone"
+          type="number"
           value={props.currentCustomer.address.phone} 
           onChange={(e) => props.editPhone(e.target.value)} 
         />
@@ -79,7 +81,7 @@ const CustomerForm = (props) => (
         />
 
         <TextField
-          className="Left-Input" 
+          className="Right-Input" 
           hintText="Address2"
           hintStyle={{color:'#ccc'}} 
           id={"6"} 
@@ -88,8 +90,10 @@ const CustomerForm = (props) => (
           onChange={(e) => props.editAddress2(e.target.value)} 
         />
 
+        <br/>
+
         <TextField
-          className="Right-Input" 
+          className="Left-Input" 
           hintText="District *"
           hintStyle={{color:'#ccc'}} 
           id={"7"} 
@@ -103,34 +107,10 @@ const CustomerForm = (props) => (
           hintText="PostalCode"
           hintStyle={{color:'#ccc'}} 
           id={"8"} 
-          type="phone"
+          type="number"
           value={props.currentCustomer.address.postalCode} 
           onChange={(e) => props.editPostalCode(e.target.value)} 
         />
-
-        <SelectField
-          hintText="City *"
-          value={""}
-          onChange={this.editCity}
-        >
-          <MenuItem value={1} primaryText="Never" />
-          <MenuItem value={2} primaryText="Every Night" />
-          <MenuItem value={3} primaryText="Weeknights" />
-          <MenuItem value={4} primaryText="Weekends" />
-          <MenuItem value={5} primaryText="Weekly" />
-        </SelectField>
-
-        <SelectField
-          hintText="Country *"
-          value={""}
-          onChange={this.editCountry}
-        >
-          <MenuItem value={1} primaryText="Never" />
-          <MenuItem value={2} primaryText="Every Night" />
-          <MenuItem value={3} primaryText="Weeknights" />
-          <MenuItem value={4} primaryText="Weekends" />
-          <MenuItem value={5} primaryText="Weekly" />
-        </SelectField>
       </CardText>
 
       <CardActions>

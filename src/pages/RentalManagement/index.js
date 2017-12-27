@@ -44,15 +44,18 @@ class RentalManagement extends Component {
           onUpdateRental={this.onUpdateRental}
           error={this.state.errorRentals}
           loading={this.state.loadingRentals}
+          isRental={true}
           rentals={this.state.rentals}
         />
 
+        <br/>
         <br/>
 
         <FilmList 
           onCreateRental={this.onCreateRental}
           error={this.state.errorFilms}
           loading={this.state.loadingFilms}
+          isRental={false}
           films={this.state.films}
         />
       </div>
@@ -65,25 +68,23 @@ class RentalManagement extends Component {
         ? this.setState({customers: res, loadingForm:false})
         : this.setState({errorForm:true, loadingForm:false})
     }).catch(err => {
-      this.setState({customers: [], error: true, loading:false});
     });
 
     if(this.props.location.state) {
-      this.setState({selectedCustomerId: this.props.location.state.selectedCustomerId})
-      this.getRentalsAndFilmsFromCustomer(this.props.location.state.selectedCustomerId)
+      this.setState({selectedCustomerId: this.props.location.state.customerId})
+      this.getRentalsAndFilmsFromCustomer(this.props.location.state.customerId)
     }
   }
 
   onSelectCustomer = (customerId) => {
-    this.setState({selectedCustomerId: customerId});
+    this.setState({selectedCustomerId: customerId, loadingRentals: true, loadingFilms:true});
 
     this.getRentalsAndFilmsFromCustomer(customerId)
   }
 
   onCreateRental = (filmId) => {
     RentalService.createRental(this.state.selectedCustomerId, filmId).then(res => {
-      console.log(res)
-      //this.setState({rentals: res, loadingRentals:false});
+      this.getRentalsAndFilmsFromCustomer(this.state.selectedCustomerId);
     }).catch(err => {
       console.log(err)
     });
@@ -92,26 +93,24 @@ class RentalManagement extends Component {
 
   onUpdateRental = (filmId) => {
     RentalService.updateRental(this.state.selectedCustomerId, filmId).then(res => {
-      console.log(res)
-      //this.setState({rentals: res, loadingRentals:false});
+      this.getRentalsAndFilmsFromCustomer(this.state.selectedCustomerId);
     }).catch(err => {
       console.log(err)
     });
 
-    this.getRentalsAndFilmsFromCustomer(this.state.selectedCustomerId)
   }
 
   getRentalsAndFilmsFromCustomer = (customerId) => {
+    this.setState({loadingRentals: true, loadingFilms:true})
+
     RentalService.getCustomerRentals(customerId).then(res => {
-      console.log(res)
-      //this.setState({rentals: res, loadingRentals:false});
+      this.setState({rentals: res, loadingRentals:false});
     }).catch(err => {
       this.setState({rentals: [], errorRentals: true, loadingRentals:false});
     });
 
     RentalService.getNoRentedFilms(customerId).then(res => {
-      console.log(res)
-      //this.setState({films: res, loadingFilms:false});
+      this.setState({films: res, loadingFilms:false});
     }).catch(err => {
       this.setState({films: [], errorFilms: true, loadingFilms:false});
     });

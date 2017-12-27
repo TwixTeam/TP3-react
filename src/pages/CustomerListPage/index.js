@@ -20,7 +20,7 @@ class CustomerListPage extends Component {
   render() {
     return (
       <div>
-        <CustomerList handleEditCustomer={this.handleEditCustomer} {...this.state} />
+        <CustomerList handleGoToCustomerRentals={this.handleGoToCustomerRentals} handleEditCustomer={this.handleEditCustomer} {...this.state} />
       </div>
     )
   }
@@ -32,11 +32,18 @@ class CustomerListPage extends Component {
       this.setState({open:true, result: "Network error: Cannot find customers", customers: [], error: true, loading:false});
     });
   }
-  
+
   handleEditCustomer = (customer) => {
     this.props.history.push({
       pathname: '/',
       state: { user: customer }
+    })
+  }
+
+  handleGoToCustomerRentals = (id) => {
+    this.props.history.push({
+      pathname: '/rentals',
+      state: { customerId: id }
     })
   }
 }

@@ -29,7 +29,7 @@ const CustomerListHelper = {
 
           <RaisedButton 
             label="Rentals"
-            onClick={this.handleRental}
+            onClick={() => props.handleGoToCustomerRentals(customer.customerId)}
             secondary={true}  
           />
         </TableRowColumn>
